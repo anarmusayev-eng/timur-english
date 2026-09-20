@@ -1,0 +1,656 @@
+<title>Шкільна лексика</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --bg: #F2F4F1;
+    --card: #FFFFFF;
+    --ink: #1C2733;
+    --muted: #5C6B7A;
+    --line: #D7DDE2;
+    --accent: #2F6F5E;
+    --accent-ink: #FFFFFF;
+    --accent-soft: #E3F0EB;
+    --ok: #2E7D4F;
+    --ok-soft: #E1F3E7;
+    --bad: #C2402E;
+    --bad-soft: #FBE6E2;
+    --sel: #F6E7B4;
+    --sel-line: #C9A227;
+    --display: "Bricolage Grotesque", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+    --body: "Figtree", "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12181E; --card: #1B242D; --ink: #E7ECF0; --muted: #98A6B3; --line: #2E3A46;
+      --accent: #5FB39C; --accent-ink: #0F1A17; --accent-soft: #1F3A33;
+      --ok: #63C387; --ok-soft: #1E3A2A; --bad: #F08A78; --bad-soft: #452420;
+      --sel: #4A3F1A; --sel-line: #D6B34A;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #12181E; --card: #1B242D; --ink: #E7ECF0; --muted: #98A6B3; --line: #2E3A46;
+    --accent: #5FB39C; --accent-ink: #0F1A17; --accent-soft: #1F3A33;
+    --ok: #63C387; --ok-soft: #1E3A2A; --bad: #F08A78; --bad-soft: #452420;
+    --sel: #4A3F1A; --sel-line: #D6B34A;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.45;
+    margin: 0;
+    padding-block: 20px 48px;
+    padding-inline: 16px;
+    min-height: 100%;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+
+  header.top {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .brand { font-family: var(--display); font-weight: 800; font-size: 20px; letter-spacing: -0.01em; }
+  .brand small { font-family: var(--body); font-weight: 500; color: var(--muted); font-size: 14px; margin-left: 8px; }
+  .who { color: var(--muted); font-size: 14px; }
+
+  .progress { display: flex; gap: 4px; margin-bottom: 22px; }
+  .progress span { flex: 1; height: 6px; border-radius: 3px; background: var(--line); }
+  .progress span.done { background: var(--accent); }
+  .progress span.cur { background: var(--sel-line); }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 22px 20px;
+  }
+  .eyebrow { text-transform: uppercase; letter-spacing: 0.08em; font-size: 12px; font-weight: 700; color: var(--muted); margin: 0 0 6px; }
+  h1, h2 { font-family: var(--display); text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+  h1 { font-size: 30px; font-weight: 800; line-height: 1.15; }
+  h2 { font-size: 22px; font-weight: 700; line-height: 1.2; }
+  p { margin: 10px 0 0; }
+  p.lead { color: var(--muted); }
+  .hint { font-size: 14px; color: var(--muted); }
+
+  label { display: block; font-weight: 600; margin: 18px 0 6px; }
+  input[type="text"] {
+    width: 100%; font: inherit; font-size: 18px; padding: 12px 14px;
+    border: 1.5px solid var(--line); border-radius: 10px; background: var(--bg); color: var(--ink);
+  }
+  input[type="text"]:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+
+  .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; align-items: center; }
+  button {
+    font: inherit; font-weight: 600; cursor: pointer;
+    border: 1.5px solid var(--line); border-radius: 10px;
+    background: var(--card); color: var(--ink);
+    padding: 11px 18px; min-height: 44px;
+    transition: background .12s, border-color .12s, transform .06s;
+  }
+  button:hover:not(:disabled) { border-color: var(--accent); }
+  button:active:not(:disabled) { transform: translateY(1px); }
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  button:disabled { opacity: .45; cursor: not-allowed; }
+  button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  button.primary:hover:not(:disabled) { filter: brightness(1.06); }
+
+  .setlist { display: grid; gap: 10px; margin-top: 16px; }
+  .setrow { display: flex; gap: 12px; align-items: baseline; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; }
+  .setrow b { font-family: var(--display); font-size: 17px; }
+  .setrow span { color: var(--muted); font-size: 14px; }
+
+  /* matching */
+  .match { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 18px; }
+  .col { display: grid; gap: 8px; align-content: start; }
+  .colhead { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 700; }
+  .tile {
+    position: relative; text-align: left; padding: 11px 12px 11px 12px; min-height: 52px;
+    border-radius: 10px; border: 1.5px solid var(--line); background: var(--card); color: var(--ink);
+    font-weight: 500; font-size: 15px; line-height: 1.3; width: 100%;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .tile.en { font-weight: 700; font-family: var(--display); font-size: 16px; }
+  .tile.sel { background: var(--sel); border-color: var(--sel-line); }
+  .tile.paired { border-color: var(--accent); background: var(--accent-soft); }
+  .tile.ok { border-color: var(--ok); background: var(--ok-soft); }
+  .tile.bad { border-color: var(--bad); background: var(--bad-soft); }
+  .tile .num {
+    flex: none; width: 22px; height: 22px; border-radius: 50%;
+    background: var(--accent); color: var(--accent-ink); font-size: 12px; font-weight: 700;
+    display: inline-flex; align-items: center; justify-content: center; font-family: var(--body);
+  }
+  .tile.ok .num { background: var(--ok); }
+  .tile.bad .num { background: var(--bad); }
+  .tile .fix { display: block; font-size: 13px; color: var(--ok); font-weight: 600; margin-top: 4px; }
+  .tile:disabled { opacity: 1; cursor: default; }
+
+  /* correct the translation */
+  .qcount { color: var(--muted); font-size: 14px; font-weight: 600; }
+  .phrase { margin-top: 14px; padding: 18px; border-radius: 12px; background: var(--bg); border: 1px solid var(--line); }
+  .phrase .en { font-family: var(--display); font-size: 26px; font-weight: 800; line-height: 1.15; }
+  .phrase .ex { color: var(--muted); font-size: 15px; margin-top: 6px; font-style: italic; }
+  .phrase .uk { margin-top: 12px; font-size: 19px; font-weight: 600; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+  .phrase .uk::before { content: "→"; color: var(--muted); font-weight: 400; }
+  .judge { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+  .judge button { min-height: 54px; font-size: 16px; }
+  .options { display: grid; gap: 8px; margin-top: 14px; }
+  .options button { text-align: left; font-weight: 500; }
+  .options button.ok { border-color: var(--ok); background: var(--ok-soft); }
+  .options button.bad { border-color: var(--bad); background: var(--bad-soft); }
+  .feedback { margin-top: 14px; padding: 12px 14px; border-radius: 10px; font-weight: 500; border: 1px solid; }
+  .feedback.ok { background: var(--ok-soft); border-color: var(--ok); color: var(--ink); }
+  .feedback.bad { background: var(--bad-soft); border-color: var(--bad); color: var(--ink); }
+  .feedback b { font-weight: 700; }
+  @media (max-width: 420px) {
+    .judge { grid-template-columns: 1fr; }
+    .tile { font-size: 14px; padding: 9px 10px; }
+    .tile.en { font-size: 15px; }
+    .phrase .en { font-size: 22px; }
+    h1 { font-size: 26px; }
+  }
+
+  /* results */
+  .score { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 18px; }
+  .stat { padding: 14px; border-radius: 12px; border: 1px solid var(--line); }
+  .stat .v { font-family: var(--display); font-size: 30px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+  .stat .l { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; font-weight: 700; margin-top: 6px; }
+  .stat.good .v { color: var(--ok); }
+  .stat.badv .v { color: var(--bad); }
+  @media (max-width: 420px) { .score { grid-template-columns: 1fr 1fr; } .score .stat:first-child { grid-column: 1 / -1; } }
+  .bysets { margin-top: 14px; display: grid; gap: 6px; font-size: 15px; }
+  .bysets div { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px dashed var(--line); font-variant-numeric: tabular-nums; }
+  .errors { margin-top: 22px; }
+  .err { padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .err .en { font-family: var(--display); font-weight: 700; font-size: 17px; }
+  .err .row { font-size: 15px; margin-top: 3px; }
+  .err .row.given { color: var(--bad); }
+  .err .row.right { color: var(--ok); font-weight: 600; }
+  .err .task { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; font-weight: 700; }
+  .perfect { margin-top: 18px; padding: 14px; border-radius: 10px; background: var(--ok-soft); border: 1px solid var(--ok); font-weight: 600; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">Шкільна лексика <small>English · A2–B1</small></div>
+    <div class="who" id="who"></div>
+  </header>
+  <div class="progress" id="progress"></div>
+  <main class="card" id="stage"></main>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  // ---------- Лексика ----------
+  const A_MATCH = [
+    [
+      { en: 'pay attention', uk: 'звертати увагу / бути уважним' },
+      { en: 'get a degree', uk: 'отримати диплом' },
+      { en: 'take an exam', uk: 'складати (здавати) іспит' },
+      { en: 'set homework', uk: 'задавати домашнє завдання' },
+      { en: 'skip lessons', uk: 'прогулювати уроки' },
+      { en: 'attend school', uk: 'відвідувати школу' },
+    ],
+    [
+      { en: 'fail an exam', uk: 'провалити іспит' },
+      { en: 'pay tuition fees', uk: 'платити за навчання' },
+      { en: 'mark homework', uk: 'перевіряти (оцінювати) домашнє завдання' },
+      { en: 'learn from mistakes', uk: 'вчитися на помилках' },
+      { en: 'leave school', uk: 'кинути (залишити) школу' },
+      { en: 'drop a subject', uk: 'кинути (перестати вивчати) предмет' },
+    ],
+  ];
+
+  // shown — переклад, який бачить учень; ok — чи він правильний;
+  // correct — правильний переклад; wrong — два хибні варіанти для вибору.
+  const A_CORRECT = [
+    { en: 'do a degree', shown: 'отримати диплом', ok: false,
+      correct: 'навчатися на диплом (здобувати ступінь)', wrong: ['мати диплом (вищу освіту)', 'платити за навчання'] },
+    { en: 'have a degree', shown: 'мати диплом (вищу освіту)', ok: true,
+      correct: 'мати диплом (вищу освіту)', wrong: ['отримати диплом', 'навчатися на диплом (здобувати ступінь)'] },
+    { en: 'pass an exam', shown: 'складати (здавати) іспит', ok: false,
+      correct: 'успішно скласти іспит', wrong: ['провалити іспит', 'складати (здавати) іспит'] },
+    { en: 'revise for an exam', shown: 'повторювати матеріал до іспиту', ok: true,
+      correct: 'повторювати матеріал до іспиту', wrong: ['складати (здавати) іспит', 'успішно скласти іспит'] },
+    { en: 'do homework', shown: 'задавати домашнє завдання', ok: false,
+      correct: 'робити домашнє завдання', wrong: ['здавати домашнє завдання', 'перевіряти (оцінювати) домашнє завдання'] },
+    { en: 'hand in homework', shown: 'здавати домашнє завдання', ok: true,
+      correct: 'здавати домашнє завдання', wrong: ['задавати домашнє завдання', 'робити домашнє завдання'] },
+    { en: 'miss lessons', shown: 'прогулювати уроки', ok: false,
+      correct: 'пропускати уроки', wrong: ['ходити на уроки', 'задавати уроки'] },
+    { en: 'make mistakes', shown: 'робити помилки', ok: true,
+      correct: 'робити помилки', wrong: ['вчитися на помилках', 'виправляти помилки'] },
+    { en: 'go to school', shown: 'закінчити школу', ok: false,
+      correct: 'ходити до школи', wrong: ['кинути (залишити) школу', 'піти до школи (почати навчання)'] },
+    { en: 'start school', shown: 'кинути (залишити) школу', ok: false,
+      correct: 'піти до школи (почати навчання)', wrong: ['закінчити школу', 'відвідувати школу'] },
+    { en: 'finish school', shown: 'закінчити школу', ok: true,
+      correct: 'закінчити школу', wrong: ['кинути (залишити) школу', 'піти до школи (почати навчання)'] },
+    { en: 'take a subject', shown: 'кинути (перестати вивчати) предмет', ok: false,
+      correct: 'обрати (вивчати) предмет', wrong: ['провалити предмет', 'повторювати предмет'] },
+  ];
+
+  const B_MATCH = [[
+    { en: 'break up', uk: 'йти на канікули / завершувати навчання' },
+    { en: 'cope with', uk: 'справлятися з / долати' },
+    { en: 'get into', uk: 'вступити до (університету) / пройти відбір' },
+    { en: 'hand in', uk: 'здавати / вручати (роботу вчителю)' },
+    { en: 'keep up with', uk: 'встигати за / бути на одному рівні' },
+    { en: 'line up', uk: 'вишикуватися в чергу / шеренгу' },
+    { en: 'move up', uk: 'переходити на наступний рівень' },
+  ]];
+
+  const B_CORRECT = [
+    { en: 'break up', ex: 'School breaks up on 20 December.', shown: 'вишикуватися в чергу', ok: false,
+      correct: 'йти на канікули / завершувати навчання', wrong: ['вишикуватися в чергу', 'переходити на наступний рівень'] },
+    { en: 'cope with', ex: "I can't cope with so much homework.", shown: 'справлятися з / долати', ok: true,
+      correct: 'справлятися з / долати', wrong: ['встигати за', 'здавати / вручати'] },
+    { en: 'get into', ex: 'She got into Oxford last year.', shown: 'переходити на наступний рівень', ok: false,
+      correct: 'вступити до / пройти відбір', wrong: ['переходити на наступний рівень', 'встигати за'] },
+    { en: 'hand in', ex: 'Hand in your essays by Monday.', shown: 'здавати / вручати', ok: true,
+      correct: 'здавати / вручати', wrong: ['справлятися з', 'вишикуватися в чергу'] },
+    { en: 'keep up with', ex: "He can't keep up with the rest of the class.", shown: 'справлятися з / долати', ok: false,
+      correct: 'встигати за / бути на одному рівні', wrong: ['справлятися з / долати', 'вступити до'] },
+    { en: 'line up', ex: 'Line up outside the classroom, please.', shown: 'вишикуватися в чергу / шеренгу', ok: true,
+      correct: 'вишикуватися в чергу / шеренгу', wrong: ['йти на канікули', 'переходити на наступний рівень'] },
+    { en: 'move up', ex: 'Next year I move up to Year 10.', shown: 'вступити до / пройти відбір', ok: false,
+      correct: 'переходити на наступний рівень', wrong: ['вступити до / пройти відбір', 'здавати / вручати'] },
+  ];
+
+  const SETS = [
+    { id: 'A', title: 'Collocations', sub: 'Слова про школу, іспити та домашку', match: A_MATCH, correct: A_CORRECT },
+    { id: 'B', title: 'Phrasal verbs', sub: 'break up, cope with, get into…', match: B_MATCH, correct: B_CORRECT },
+  ];
+
+  // ---------- Кроки ----------
+  const steps = [{ type: 'name' }];
+  SETS.forEach(set => {
+    steps.push({ type: 'intro', set });
+    set.match.forEach((items, i) => steps.push({ type: 'match', set, items, part: i + 1, parts: set.match.length }));
+    steps.push({ type: 'correct', set, items: set.correct });
+  });
+  steps.push({ type: 'results' });
+
+  const TOTAL = SETS.reduce((n, s) => n + s.match.reduce((m, g) => m + g.length, 0) + s.correct.length, 0);
+
+  let state = { name: '', step: 0, results: [] };
+  // results: { set, task, en, given, correct, ok }
+
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+  function el(tag, cls, html) {
+    const e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (html !== undefined) e.innerHTML = html;
+    return e;
+  }
+  function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+  const stage = document.getElementById('stage');
+  const progress = document.getElementById('progress');
+  const who = document.getElementById('who');
+
+  function renderProgress() {
+    progress.innerHTML = '';
+    steps.forEach((s, i) => {
+      if (s.type === 'name' || s.type === 'intro' || s.type === 'results') return;
+      const sp = el('span');
+      if (i < state.step) sp.className = 'done';
+      else if (i === state.step) sp.className = 'cur';
+      progress.appendChild(sp);
+    });
+    who.textContent = state.name ? state.name : '';
+  }
+
+  function go(n) {
+    state.step = n;
+    render();
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }
+
+  function render() {
+    renderProgress();
+    stage.innerHTML = '';
+    const s = steps[state.step];
+    if (s.type === 'name') renderName();
+    else if (s.type === 'intro') renderIntro(s);
+    else if (s.type === 'match') renderMatch(s);
+    else if (s.type === 'correct') renderCorrect(s);
+    else renderResults();
+  }
+
+  // ---------- Екран 1: ім'я ----------
+  function renderName() {
+    stage.appendChild(el('p', 'eyebrow', 'Vocabulary check'));
+    stage.appendChild(el('h1', '', 'Школа, іспити та домашка: перевір, що запам’ятав'));
+    stage.appendChild(el('p', 'lead',
+      `Два набори слів, чотири завдання, ${TOTAL} запитань. Спочатку з’єднуєш пари, потім ловиш помилки в перекладах. Наприкінці побачиш результат і список того, що варто повторити.`));
+
+    const list = el('div', 'setlist');
+    SETS.forEach(set => {
+      const n = set.match.reduce((m, g) => m + g.length, 0) + set.correct.length;
+      list.appendChild(el('div', 'setrow', `<b>${esc(set.title)}</b><span>${esc(set.sub)} · ${n} запитань</span>`));
+    });
+    stage.appendChild(list);
+
+    const lab = el('label', '', 'Name');
+    lab.setAttribute('for', 'student-name');
+    stage.appendChild(lab);
+    const inp = el('input');
+    inp.type = 'text'; inp.id = 'student-name'; inp.placeholder = 'Як тебе звати?';
+    inp.autocomplete = 'off'; inp.value = state.name;
+    stage.appendChild(inp);
+
+    const act = el('div', 'actions');
+    const btn = el('button', 'primary', 'Почати');
+    btn.id = 'start-btn';
+    btn.disabled = !inp.value.trim();
+    inp.addEventListener('input', () => { btn.disabled = !inp.value.trim(); });
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter' && !btn.disabled) btn.click(); });
+    btn.addEventListener('click', () => { state.name = inp.value.trim(); state.results = []; go(1); });
+    act.appendChild(btn);
+    stage.appendChild(act);
+    setTimeout(() => inp.focus(), 50);
+  }
+
+  // ---------- Заставка набору ----------
+  function renderIntro(s) {
+    const n = s.set.match.reduce((m, g) => m + g.length, 0) + s.set.correct.length;
+    stage.appendChild(el('p', 'eyebrow', `Набір ${s.set.id}`));
+    stage.appendChild(el('h1', '', esc(s.set.title)));
+    stage.appendChild(el('p', 'lead', `${esc(s.set.sub)}. ${n} запитань у двох завданнях.`));
+    const list = el('div', 'setlist');
+    list.appendChild(el('div', 'setrow', `<b>1. Matching</b><span>з’єднай англійський вираз з українським перекладом</span>`));
+    list.appendChild(el('div', 'setrow', `<b>2. Correct the translation</b><span>частина перекладів хибна. Знайди помилку і обери правильний варіант</span>`));
+    stage.appendChild(list);
+    const act = el('div', 'actions');
+    const btn = el('button', 'primary', 'Поїхали');
+    btn.addEventListener('click', () => go(state.step + 1));
+    act.appendChild(btn);
+    stage.appendChild(act);
+  }
+
+  // ---------- Matching ----------
+  function renderMatch(s) {
+    const items = s.items;
+    const right = shuffle(items.map((it, i) => ({ uk: it.uk, idx: i })));
+    const pairs = new Map(); // leftIdx -> rightPos
+    let selected = null;
+    let checked = false;
+
+    stage.appendChild(el('p', 'eyebrow', `${esc(s.set.title)} · Matching${s.parts > 1 ? ` · частина ${s.part} з ${s.parts}` : ''}`));
+    stage.appendChild(el('h2', '', 'З’єднай пари'));
+    stage.appendChild(el('p', 'hint', 'Натисни англійський вираз, потім його переклад. Пара отримає номер. Щоб змінити, натисни на будь-яку плитку пари ще раз.'));
+
+    const grid = el('div', 'match');
+    const colL = el('div', 'col'); colL.appendChild(el('div', 'colhead', 'English'));
+    const colR = el('div', 'col'); colR.appendChild(el('div', 'colhead', 'Українською'));
+    grid.appendChild(colL); grid.appendChild(colR);
+    stage.appendChild(grid);
+
+    const leftBtns = items.map((it, i) => {
+      const b = el('button', 'tile en');
+      b.dataset.i = i;
+      b.appendChild(el('span', 'num', ''));
+      b.appendChild(el('span', 'txt', esc(it.en)));
+      b.addEventListener('click', () => onLeft(i));
+      colL.appendChild(b);
+      return b;
+    });
+    const rightBtns = right.map((r, pos) => {
+      const b = el('button', 'tile');
+      b.dataset.pos = pos;
+      b.appendChild(el('span', 'num', ''));
+      b.appendChild(el('span', 'txt', esc(r.uk)));
+      b.addEventListener('click', () => onRight(pos));
+      colR.appendChild(b);
+      return b;
+    });
+
+    const act = el('div', 'actions');
+    const checkBtn = el('button', 'primary', 'Перевірити');
+    checkBtn.disabled = true;
+    const status = el('span', 'hint', `0 з ${items.length} пар`);
+    act.appendChild(checkBtn); act.appendChild(status);
+    stage.appendChild(act);
+
+    function rightPosOf(leftIdx) { return pairs.get(leftIdx); }
+    function leftOfRight(pos) { for (const [l, p] of pairs) if (p === pos) return l; return null; }
+
+    function onLeft(i) {
+      if (checked) return;
+      if (pairs.has(i)) { pairs.delete(i); }
+      selected = (selected === i) ? null : i;
+      paint();
+    }
+    function onRight(pos) {
+      if (checked) return;
+      const owner = leftOfRight(pos);
+      if (selected === null) {
+        if (owner !== null) { pairs.delete(owner); selected = owner; }
+        paint(); return;
+      }
+      if (owner !== null) pairs.delete(owner);
+      pairs.set(selected, pos);
+      selected = null;
+      paint();
+    }
+    function paint() {
+      const order = [...pairs.keys()].sort((a, b) => a - b);
+      leftBtns.forEach((b, i) => {
+        b.classList.toggle('sel', selected === i);
+        b.classList.toggle('paired', pairs.has(i));
+        b.querySelector('.num').textContent = pairs.has(i) ? (order.indexOf(i) + 1) : '';
+        b.querySelector('.num').style.visibility = pairs.has(i) ? 'visible' : 'hidden';
+      });
+      rightBtns.forEach((b, pos) => {
+        const owner = leftOfRight(pos);
+        b.classList.toggle('paired', owner !== null);
+        b.querySelector('.num').textContent = owner !== null ? (order.indexOf(owner) + 1) : '';
+        b.querySelector('.num').style.visibility = owner !== null ? 'visible' : 'hidden';
+      });
+      status.textContent = `${pairs.size} з ${items.length} пар`;
+      checkBtn.disabled = pairs.size !== items.length;
+    }
+    paint();
+
+    checkBtn.addEventListener('click', () => {
+      checked = true;
+      let good = 0;
+      items.forEach((it, i) => {
+        const pos = rightPosOf(i);
+        const chosen = right[pos];
+        const ok = chosen.idx === i;
+        if (ok) good++;
+        leftBtns[i].classList.remove('paired', 'sel');
+        rightBtns[pos].classList.remove('paired');
+        leftBtns[i].classList.add(ok ? 'ok' : 'bad');
+        rightBtns[pos].classList.add(ok ? 'ok' : 'bad');
+        leftBtns[i].disabled = true; rightBtns[pos].disabled = true;
+        if (!ok) {
+          leftBtns[i].querySelector('.txt').appendChild(el('span', 'fix', '✓ ' + esc(it.uk)));
+        }
+        state.results.push({ set: s.set.title, task: 'Matching', en: it.en, given: chosen.uk, correct: it.uk, ok });
+      });
+      status.textContent = `${good} з ${items.length} правильно`;
+      checkBtn.remove();
+      const next = el('button', 'primary', 'Далі');
+      next.addEventListener('click', () => go(state.step + 1));
+      act.insertBefore(next, status);
+      next.focus();
+    });
+  }
+
+  // ---------- Correct the translation ----------
+  function renderCorrect(s) {
+    const items = shuffle(s.items);
+    let q = 0;
+
+    stage.appendChild(el('p', 'eyebrow', `${esc(s.set.title)} · Correct the translation`));
+    const head = el('div', 'actions'); head.style.marginTop = '0'; head.style.justifyContent = 'space-between';
+    head.appendChild(el('h2', '', 'Переклад правильний?'));
+    const count = el('span', 'qcount');
+    head.appendChild(count);
+    stage.appendChild(head);
+    stage.appendChild(el('p', 'hint', 'Якщо переклад хибний, натисни «Є помилка» і обери правильний варіант.'));
+
+    const box = el('div');
+    stage.appendChild(box);
+
+    function show() {
+      const it = items[q];
+      count.textContent = `${q + 1} / ${items.length}`;
+      box.innerHTML = '';
+
+      const ph = el('div', 'phrase');
+      ph.appendChild(el('div', 'en', esc(it.en)));
+      if (it.ex) ph.appendChild(el('div', 'ex', esc(it.ex)));
+      ph.appendChild(el('div', 'uk', esc(it.shown)));
+      box.appendChild(ph);
+
+      const judge = el('div', 'judge');
+      const yes = el('button', '', '✅ Правильно');
+      const no = el('button', '', '❌ Є помилка');
+      judge.appendChild(yes); judge.appendChild(no);
+      box.appendChild(judge);
+
+      yes.addEventListener('click', () => {
+        lock();
+        finish(it, it.ok, it.ok ? it.shown : `сказав «правильно» (${it.shown})`);
+      });
+      no.addEventListener('click', () => {
+        lock();
+        if (it.ok) {
+          finish(it, false, `сказав «помилка», а переклад був правильний`);
+          return;
+        }
+        box.appendChild(el('p', 'hint', 'Так, тут помилка. Який переклад правильний?'));
+        const opts = el('div', 'options');
+        shuffle([it.correct, ...it.wrong]).forEach(o => {
+          const b = el('button', '', esc(o));
+          b.addEventListener('click', () => {
+            [...opts.children].forEach(x => { x.disabled = true; });
+            const ok = o === it.correct;
+            b.classList.add(ok ? 'ok' : 'bad');
+            if (!ok) [...opts.children].find(x => x.textContent === it.correct).classList.add('ok');
+            finish(it, ok, o);
+          });
+          opts.appendChild(b);
+        });
+        box.appendChild(opts);
+      });
+
+      function lock() { yes.disabled = true; no.disabled = true; }
+    }
+
+    function finish(it, ok, given) {
+      state.results.push({ set: s.set.title, task: 'Correct the translation', en: it.en, given, correct: it.correct, ok });
+      const fb = el('div', 'feedback ' + (ok ? 'ok' : 'bad'));
+      fb.innerHTML = ok
+        ? `Так! <b>${esc(it.en)}</b> — ${esc(it.correct)}.`
+        : `Ні. <b>${esc(it.en)}</b> — це <b>${esc(it.correct)}</b>.`;
+      box.appendChild(fb);
+      const act = el('div', 'actions');
+      const next = el('button', 'primary', q + 1 < items.length ? 'Далі' : 'Завершити завдання');
+      next.addEventListener('click', () => {
+        q++;
+        if (q < items.length) show(); else go(state.step + 1);
+        window.scrollTo({ top: 0, behavior: 'auto' });
+      });
+      act.appendChild(next);
+      box.appendChild(act);
+      next.focus();
+    }
+
+    show();
+  }
+
+  // ---------- Результати ----------
+  function renderResults() {
+    const r = state.results;
+    const total = r.length;
+    const good = r.filter(x => x.ok).length;
+    const bad = total - good;
+    const pct = total ? Math.round(good / total * 100) : 0;
+
+    stage.appendChild(el('p', 'eyebrow', 'Результат'));
+    const verdict = pct === 100 ? 'Ідеально, ' : pct >= 85 ? 'Дуже добре, ' : pct >= 70 ? 'Непогано, ' : pct >= 50 ? 'Є над чим попрацювати, ' : 'Треба повторити, ';
+    stage.appendChild(el('h1', '', esc(verdict + state.name)));
+
+    const sc = el('div', 'score');
+    sc.appendChild(el('div', 'stat', `<div class="v">${pct}%</div><div class="l">загальний результат</div>`));
+    sc.appendChild(el('div', 'stat good', `<div class="v">${good}</div><div class="l">правильно з ${total}</div>`));
+    sc.appendChild(el('div', 'stat' + (bad ? ' badv' : ''), `<div class="v">${bad}</div><div class="l">помилок</div>`));
+    stage.appendChild(sc);
+
+    const by = el('div', 'bysets');
+    SETS.forEach(set => {
+      ['Matching', 'Correct the translation'].forEach(task => {
+        const sub = r.filter(x => x.set === set.title && x.task === task);
+        const g = sub.filter(x => x.ok).length;
+        by.appendChild(el('div', '', `<span>${esc(set.title)} · ${task}</span><b>${g} / ${sub.length}</b>`));
+      });
+    });
+    stage.appendChild(by);
+
+    const errs = r.filter(x => !x.ok);
+    if (!errs.length) {
+      stage.appendChild(el('div', 'perfect', 'Жодної помилки. Усі слова з обох наборів на місці.'));
+    } else {
+      const wrap = el('div', 'errors');
+      wrap.appendChild(el('h2', '', 'Що переплутав і як правильно'));
+      // групуємо за словом, щоб одне слово не дублювалось
+      const seen = new Map();
+      errs.forEach(e => {
+        const key = e.en;
+        if (!seen.has(key)) seen.set(key, []);
+        seen.get(key).push(e);
+      });
+      seen.forEach((list, en) => {
+        const d = el('div', 'err');
+        d.appendChild(el('div', 'task', list.map(e => e.task).join(' · ')));
+        d.appendChild(el('div', 'en', esc(en)));
+        list.forEach(e => d.appendChild(el('div', 'row given', '✗ твоя відповідь: ' + esc(e.given))));
+        d.appendChild(el('div', 'row right', '✓ правильно: ' + esc(list[0].correct)));
+        wrap.appendChild(d);
+      });
+      stage.appendChild(wrap);
+    }
+
+    stage.appendChild(el('p', 'hint', 'Зроби скріншот цього екрана і надішли викладачу.'));
+    const act = el('div', 'actions');
+    const again = el('button', '', 'Пройти ще раз');
+    again.addEventListener('click', () => { state.results = []; go(0); });
+    act.appendChild(again);
+    stage.appendChild(act);
+  }
+
+  // ---------- Старт (зі збереженням стану при оновленні сторінки автором) ----------
+  function start(saved) {
+    if (saved && typeof saved.step === 'number' && Array.isArray(saved.results)) {
+      state = { name: saved.name || '', step: Math.min(saved.step, steps.length - 1), results: saved.results };
+      // не відновлюємо посеред завдання: повертаємось до його початку
+    }
+    render();
+  }
+  try {
+    if (window.claude && window.claude.hot && window.claude.hot.snapshot) {
+      window.claude.hot.snapshot(() => ({ name: state.name, step: state.step, results: state.results }));
+    }
+  } catch (e) {}
+  if (window.claude && window.claude.hot && window.claude.hot.ready) window.claude.hot.ready(start);
+  else start((window.claude && window.claude.hot && window.claude.hot.data) || null);
+})();
+</script>
